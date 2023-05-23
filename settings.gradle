@@ -14,3 +14,12 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Compose"
 include ':app'
+include ':feature'
+include ':feature:main'
+
+include ':core'
+include ':core:ui'
+include ':feature:project'
+include ':feature:navigation'
+include ':feature:official'
+include ':feature:mine'

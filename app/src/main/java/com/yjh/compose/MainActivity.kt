@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(0xFFD0BCFF)
                 ) {
-                    MainScreen()
+                    HomeScreen()
                 }
             }
         }
