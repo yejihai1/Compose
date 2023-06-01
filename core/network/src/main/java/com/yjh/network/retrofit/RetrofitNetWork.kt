@@ -36,3 +36,7 @@ suspend fun <T> launchRequest(request: suspend RetrofitNetworkApi.() -> BaseResp
         emit(response)
     }.flowOn(Dispatchers.IO)
 }
+
+suspend fun <T> syncLaunchRequest(request: suspend RetrofitNetworkApi.() -> BaseResponse<T>?): BaseResponse<T> {
+    return request(networkApi) ?: throw IllegalArgumentException("数据非法，获取响应数据为空")
+}

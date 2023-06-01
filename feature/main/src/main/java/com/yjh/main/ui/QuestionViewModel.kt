@@ -1,5 +1,9 @@
 package com.yjh.main.ui
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.yjh.main.BaseViewModel
 import com.yjh.network.model.Article
 import com.yjh.network.retrofit.launchRequest
@@ -11,25 +15,16 @@ import kotlinx.coroutines.flow.map
 class QuestionViewModel : BaseViewModel() {
 
 
-    private val _questionArticleListData: MutableStateFlow<MutableList<Article>> =
-        MutableStateFlow(mutableListOf())
-    val questionArticleListData: StateFlow<MutableList<Article>> =
-        _questionArticleListData.asStateFlow()
-
-
-    private fun getQAArticleList(pageNum: Int) {
-        async {
-            launchRequest { this.getQAArticleList(pageNum) }.map {
-                it.data.datas
-            }.collect {
-                _questionArticleListData.value = it
-            }
-        }
+    val getData by lazy {
+        Pager(PagingConfig(1)) {
+            QuestionPagingSource()
+        }.flow
     }
 
+
     override fun start() {
-        initThat {
-            getQAArticleList(0)
-        }
+//        initThat {
+//            getQAArticleList(0)
+//        }
     }
 }

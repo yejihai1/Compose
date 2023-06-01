@@ -13,19 +13,22 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.items
 import com.yjh.network.model.Article
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListItem(state: State<MutableList<Article>>) {
+fun ListItem(data: LazyPagingItems<Article>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 80.dp)
     ) {
-        state.value.forEach {
-            item(it.id) {
+
+        items(items = data) { item ->
+            item?.let {
                 Surface(
                     onClick = {},
                     modifier = Modifier

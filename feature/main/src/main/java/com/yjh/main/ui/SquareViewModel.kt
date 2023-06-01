@@ -1,5 +1,9 @@
 package com.yjh.main.ui
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.yjh.main.BaseViewModel
 import com.yjh.network.model.Article
 import com.yjh.network.retrofit.launchRequest
@@ -10,25 +14,16 @@ import kotlinx.coroutines.flow.map
 
 class SquareViewModel : BaseViewModel() {
 
-    private val _squareArticleListData: MutableStateFlow<MutableList<Article>> =
-        MutableStateFlow(mutableListOf())
-    val squareArticleListData: StateFlow<MutableList<Article>> =
-        _squareArticleListData.asStateFlow()
 
-
-    private fun getSquareArticleList(pageNum: Int) {
-        async {
-            launchRequest { this.getSquareArticleList(pageNum) }.map {
-                it.data.datas
-            }.collect {
-                _squareArticleListData.value = it
-            }
-        }
+    val getData by lazy {
+        Pager(PagingConfig(1)) {
+            SquarePagingSource()
+        }.flow
     }
 
     override fun start() {
-        initThat {
-            getSquareArticleList(0)
-        }
+//        initThat {
+//            getSquareArticleList(0)
+//        }
     }
 }
