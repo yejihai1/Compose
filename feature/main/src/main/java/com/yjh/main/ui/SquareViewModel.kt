@@ -1,16 +1,9 @@
 package com.yjh.main.ui
 
-import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
-import com.yjh.main.BaseViewModel
-import com.yjh.network.model.Article
-import com.yjh.network.retrofit.launchRequest
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import com.yjh.ui.base.BaseViewModel
+
 
 class SquareViewModel : BaseViewModel() {
 
@@ -21,9 +14,9 @@ class SquareViewModel : BaseViewModel() {
         }.flow
     }
 
-    override fun start() {
-//        initThat {
-//            getSquareArticleList(0)
-//        }
+    override fun initThat() {
+
     }
+
+
 }

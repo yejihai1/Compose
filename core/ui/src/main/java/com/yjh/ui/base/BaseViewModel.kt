@@ -1,4 +1,4 @@
-package com.yjh.main
+package com.yjh.ui.base
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,12 @@ abstract class BaseViewModel : ViewModel() {
         get() = _isInit.value
 
 
-    abstract fun start()
+    fun start() {
+        if (!isInit) {
+            initThat()
+            requestInitialized()
+        }
+    }
 
     private fun requestInitialized() {
         _isInit.value = true
@@ -29,10 +34,5 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    fun initThat(block: () -> Unit) {
-        if (!isInit) {
-            block.invoke()
-            requestInitialized()
-        }
-    }
+    abstract fun initThat()
 }

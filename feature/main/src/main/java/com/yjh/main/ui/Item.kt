@@ -36,8 +36,6 @@ fun HomeItem(
             .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp)
     ) {
-
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
