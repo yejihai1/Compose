@@ -30,4 +30,17 @@ interface RetrofitNetworkApi {
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): BaseResponse<BaseListResponse<MutableList<ProjectItem>>>
+
+
+    @GET("wxarticle/chapters/json")
+    suspend fun getWxArticleTree(): BaseResponse<MutableList<Project>>
+
+
+    @GET("wxarticle/list/{cid}/{page}/json")
+    suspend fun getWxArticleList(
+        @Path("page") page: Int,
+        @Path("cid") cid: Int
+    ): BaseResponse<BaseListResponse<MutableList<Article>>>
+
+
 }
