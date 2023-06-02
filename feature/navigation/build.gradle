@@ -40,4 +40,5 @@ android {
 
 dependencies {
     implementation project(path: ':core:ui')
+    implementation project(path: ':core:network')
 }

@@ -16,7 +16,6 @@ data class Article(
     var fresh: Boolean = false,
     var host: String = "",
     var id: Int = 0,
-//    var isAdminAdd: Boolean = false,
     var link: String = "",
     var niceDate: String = "",
     var niceShareDate: String = "",

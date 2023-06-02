@@ -6,8 +6,10 @@ import com.yjh.network.NetworkDataSource
 import com.yjh.network.model.BaseResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import okhttp3.OkHttpClient
@@ -30,13 +32,28 @@ private val networkApi = Retrofit.Builder()
 
 
 suspend fun <T> launchRequest(request: suspend RetrofitNetworkApi.() -> BaseResponse<T>?): Flow<BaseResponse<T>> {
+
     return flow {
         val response =
-            request(networkApi) ?: throw IllegalArgumentException("数据非法，获取响应数据为空")
+            request(networkApi)
+                ?: throw IllegalArgumentException("数据非法，获取响应数据为空")
         emit(response)
-    }.flowOn(Dispatchers.IO)
+    }
+        .catch {
+            Log.d("retrofitApi", "launchRequest" + it?.message)
+        }
+        .flowOn(Dispatchers.IO)
 }
 
-suspend fun <T> syncLaunchRequest(request: suspend RetrofitNetworkApi.() -> BaseResponse<T>?): BaseResponse<T> {
-    return request(networkApi) ?: throw IllegalArgumentException("数据非法，获取响应数据为空")
+suspend fun <T> syncLaunchRequest(request: suspend RetrofitNetworkApi.() -> BaseResponse<T>?): BaseResponse<T>? {
+    var response: BaseResponse<T>?
+    try {
+        response =
+            request(networkApi) ?: throw IllegalArgumentException("数据非法，获取响应数据为空")
+    } catch (e: Exception) {
+        response = null
+        Log.d("retrofitApi", "syncLaunchRequest" + e.message)
+    }
+
+    return response
 }

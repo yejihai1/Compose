@@ -19,9 +19,12 @@ class MainPagingSource : PagingSource<Int, Article>() {
         }
         val resp = syncLaunchRequest { getArticleList(curPageNum) }
 
-        result.addAll(resp.data.datas)
+        resp?.data?.datas?.let {
+            result.addAll(it)
+        }
 
-        val nextPage = if (curPageNum < resp.data.pageCount) {
+
+        val nextPage = if (curPageNum < (resp?.data?.pageCount ?: 0)) {
             curPageNum + 1
         } else {
             null

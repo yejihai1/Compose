@@ -1,6 +1,6 @@
 package com.yjh.project
 
-import com.yjh.network.model.Project
+import com.yjh.network.model.ProjectData
 import com.yjh.network.retrofit.launchRequest
 import com.yjh.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 
 class ProjectViewModel : BaseViewModel() {
-    private val _projectListData: MutableStateFlow<MutableList<Project>> = MutableStateFlow(
+    private val _projectListData: MutableStateFlow<MutableList<ProjectData>> = MutableStateFlow(
         mutableListOf()
     )
-    val projectListData: StateFlow<MutableList<Project>> = _projectListData.asStateFlow()
+    val projectListData: StateFlow<MutableList<ProjectData>> = _projectListData.asStateFlow()
 
     private fun getProjectTree() {
         async {

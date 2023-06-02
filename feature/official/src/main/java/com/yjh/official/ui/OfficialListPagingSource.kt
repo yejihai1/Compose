@@ -15,9 +15,12 @@ class OfficialListPagingSource(private val cid: Int) : PagingSource<Int, Article
         val result = mutableListOf<Article>()
         val resp = syncLaunchRequest { getWxArticleList(curPageNum, cid) }
 
-        result.addAll(resp.data.datas)
+        resp?.data?.datas?.let {
+            result.addAll(it)
+        }
 
-        val nextPage = if (curPageNum < resp.data.pageCount) {
+
+        val nextPage = if (curPageNum < (resp?.data?.pageCount ?: 0)) {
             curPageNum + 1
         } else {
             null

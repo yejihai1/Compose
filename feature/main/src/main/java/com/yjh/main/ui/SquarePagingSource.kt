@@ -15,9 +15,12 @@ class SquarePagingSource : PagingSource<Int, Article>() {
         val curPageNum = params.key ?: 0
         val result = mutableListOf<Article>()
         val resp = syncLaunchRequest { getSquareArticleList(curPageNum) }
-        result.addAll(resp.data.datas)
+        resp?.data?.datas?.let {
+            result.addAll(it)
+        }
 
-        val nextPage = if (curPageNum < resp.data.pageCount) {
+
+        val nextPage = if (curPageNum < (resp?.data?.pageCount ?: 0)) {
             curPageNum + 1
         } else {
             null

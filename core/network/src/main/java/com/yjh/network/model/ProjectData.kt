@@ -1,12 +1,12 @@
 package com.yjh.network.model
 
-data class Project(
+data class ProjectData(
     val name: String = "",
     val courseId: Int = 0,
     val id: Int = 0
 )
 
-data class ProjectItem(
+data class ProjectItemData(
     val title: String = "",
     val desc: String = "",
     val niceDate: String = "",
