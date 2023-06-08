@@ -33,7 +33,7 @@ enum class MainPages(
     QUESTION("问答")
 }
 
-@OptIn( ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(pages: Array<MainPages> = MainPages.values()) {
 
@@ -62,9 +62,6 @@ fun MainScreen(pages: Array<MainPages> = MainPages.values()) {
         }
 
 
-        val mainModel = viewModel<MainViewModel>()
-        val squareModel = viewModel<SquareViewModel>()
-        val questionModel = viewModel<QuestionViewModel>()
 
         HorizontalPager(
             pageCount = pages.size, modifier = Modifier
@@ -74,15 +71,15 @@ fun MainScreen(pages: Array<MainPages> = MainPages.values()) {
         ) { index ->
             when (pages[index]) {
                 MainPages.MAIN -> {
-                    MainPage(viewModel = mainModel)
+                    MainPage()
                 }
 
                 MainPages.SQUARE -> {
-                    SquarePage(viewModel = squareModel)
+                    SquarePage()
                 }
 
                 MainPages.QUESTION -> {
-                    QuestionPage(viewModel = questionModel)
+                    QuestionPage()
                 }
             }
 
